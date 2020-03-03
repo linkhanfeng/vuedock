@@ -1,0 +1,29 @@
+version: '3.6'
+
+networks:
+  frontend:
+    driver: bridge
+
+services:
+### Workspace ##################################
+  workspace:
+    build:
+      context: ./workspace
+      args:
+        - TIME_ZONE=${TIME_ZONE}
+        - CHANGE_SOURCE=${CHANGE_SOURCE}
+        - UBUNTU_VERSION=${UBUNTU_VERSION}
+        - UBUNTU_SOURCE=${UBUNTU_SOURCE}
+        - NODE_NVM_VERSION=${NODE_NVM_VERSION}
+        - NODE_VERSION=${NODE_VERSION}
+        - NODE_ORG_MIRROR=${NODE_ORG_MIRROR}
+        - NPM_REGISTRY=${NPM_REGISTRY}
+        - VUE_CLI_VERSION=${WORKSPACE_VUE_CLI_VERSION}
+        - COPY_SSH_KEY=${WORKSPACE_COPY_SSH_KEY}
+    volumes:
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
+    networks:
+      - frontend
+    working_dir: ${APP_CODE_PATH_CONTAINER}
+    tty: true
+    command: ['bash']
