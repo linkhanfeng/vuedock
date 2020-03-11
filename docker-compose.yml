@@ -26,4 +26,6 @@ services:
       - frontend
     working_dir: ${APP_CODE_PATH_CONTAINER}
     tty: true
+    ports:
+      - "9528:9528"
     command: ['bash']

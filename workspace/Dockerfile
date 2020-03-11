@@ -71,8 +71,8 @@ RUN if [ ${VUE_CLI_VERSION} ]; then \
 ;fi
 
 ### 复制私钥 生产环境需要删除 #################################################
-ARG COPY_SSH_KEY
-COPY ./.ssh /tmp/.ssh
+ARG COPY_SSH_KEY=false
+COPY .ssh /tmp/.ssh
 RUN if [ ${COPY_SSH_KEY} = true ]; then \
     cp -rf /tmp/.ssh /root/ \
     && chmod 400 /root/.ssh/id_rsa && echo "Host github.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config \
